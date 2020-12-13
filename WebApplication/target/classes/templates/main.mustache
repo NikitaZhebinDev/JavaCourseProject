@@ -1,18 +1,50 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Product Management System</title>
+    <title>Kursach</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
-<div>
-    Hello, {{name}}!
-</div>
 
-<form method="get" action="/h2">
+<form method="get" action="h2">
     <button type="submit">Manage DB</button>
 </form>
+
+<!-- -------------------- Country section -------------------- -->
+
+<div>
+    <form method="post" action="add_country">
+        <input type="text" name="name" placeholder="Введите название">
+        <input type="text" name="currency" placeholder="Введите валюту">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<div>Список стран:</div>
+<form method="post" action="filter_country_by_name">
+    <input type="text" name="name">
+    <button type="submit">Найти</button>
+</form>
+{{#countries}}
+    <div>
+        <b>{{name}}</b>
+        <span>{{currency}}</span>
+    </div>
+{{/countries}}
+
+<!-- -------------------- Company section -------------------- -->
+
+{{#companies}}
+    <div>
+        <b>{{name}}</b>
+        <span>{{countryName}}</span>
+        <span>{{currentBudget}}</span>
+        <span>{{allocatedBudget}}</span>
+        <span>{{foundationDate}}</span>
+    </div>
+{{/companies}}
+
+
 
 </body>
 </html>
