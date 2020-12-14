@@ -8,7 +8,6 @@ public class Country {
 
   @Id
   private String name;
-
   private String currency;
 
   public Country() {
