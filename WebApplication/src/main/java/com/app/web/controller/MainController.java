@@ -1,7 +1,7 @@
-package com.app.web;
+package com.app.web.controller;
 
 import com.app.web.db.entity.Country;
-import com.app.web.db.repos.*;
+import com.app.web.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-import static com.app.web.model.EntityKey.*;
+import static com.app.web.config.EntityKey.*;
 
 @Controller
 public class MainController {
@@ -53,14 +53,10 @@ public class MainController {
 
   @PostMapping("filter_country_by_name")
   public String filter(@RequestParam String name, Map<String, Object> model) {
-    Iterable<Country> countries;
+    putAllData(model); // refresh the tables
     if (name != null && !name.isEmpty()) {
-      countries = countryRepo.findByName(name);
-    } else {
-      countries = countryRepo.findAll();
+      model.put("countries", countryRepo.findByName(name));
     }
-
-    model.put("countries", countries);
 
     return "main";
   }

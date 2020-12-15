@@ -1,4 +1,4 @@
-package com.app.web.db.repos;
+package com.app.web.db.repository;
 
 import com.app.web.db.entity.Country;
 import org.springframework.data.repository.CrudRepository;

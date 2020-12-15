@@ -1,4 +1,4 @@
-package com.app.web.model;
+package com.app.web.config;
 
 /**
  * Contains Model Keys for the UI containers.

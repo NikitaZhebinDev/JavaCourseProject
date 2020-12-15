@@ -23,9 +23,33 @@
 </head>
 <body>
 
+
+<h1>Home page</h1>
+
 <br><br>
 
+<!-- -------------------- User data -------------------- -->
+
+<form action="http://localhost:8888/registration">
+    <input type="submit" value="Registration"/>
+</form>
+<br>
+<form action="http://localhost:8888/login">
+    <input type="submit" value="Login"/>
+</form>
+<br>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+<br><br>
+
+<!-- -------------------- Calculate budget function -------------------- -->
+
+
 <form method="get" action="h2">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     <button type="submit">Менеджмент Базы Данных</button>
 </form>
 
@@ -34,6 +58,7 @@
 <br><br>
 
 <form method="post" action="filter_country_by_name">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     <input type="text" name="name">
     <button type="submit">Найти</button>
 </form>
@@ -55,6 +80,7 @@
 
 <div>
     <form method="post" action="add_country">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <input type="text" name="name" placeholder="Введите название">
         <input type="text" name="currency" placeholder="Введите валюту">
         <button type="submit">Добавить</button>
