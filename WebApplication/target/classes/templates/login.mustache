@@ -7,13 +7,19 @@
 <body>
 
 
-<h1> Login</h1>
+<h1> Вход в систему</h1>
+
+<form action="http://localhost:8888/registration">
+    <input type="submit" value="Регистрация"/>
+</form>
+
+<br><br>
 
 <form action="/login" method="post">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+    <div><label> Имя: <input type="text" name="username"/> </label></div>
+    <div><label> Пароль: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="Вход"/></div>
 </form>
 
 

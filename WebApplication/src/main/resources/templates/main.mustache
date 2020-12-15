@@ -24,23 +24,23 @@
 <body>
 
 
-<h1>Home page</h1>
+<h1> Главная страница</h1>
 
 <br><br>
 
 <!-- -------------------- User data -------------------- -->
 
 <form action="http://localhost:8888/registration">
-    <input type="submit" value="Registration"/>
+    <input type="submit" value="Регистрация"/>
 </form>
 <br>
 <form action="http://localhost:8888/login">
-    <input type="submit" value="Login"/>
+    <input type="submit" value="Вход в систему"/>
 </form>
 <br>
 <form action="/logout" method="post">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-    <input type="submit" value="Sign Out"/>
+    <input type="submit" value="Выйти из системы"/>
 </form>
 
 <br><br>
@@ -48,7 +48,7 @@
 <!-- -------------------- Calculate budget function -------------------- -->
 
 
-<form method="get" action="h2">
+<form action="/h2" method="get" >
     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     <button type="submit">Менеджмент Базы Данных</button>
 </form>

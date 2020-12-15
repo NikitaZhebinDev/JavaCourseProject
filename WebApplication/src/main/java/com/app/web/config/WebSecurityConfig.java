@@ -26,8 +26,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
+        .antMatchers("/h2/**").permitAll()
         .antMatchers("/", "/registration").permitAll()
         .anyRequest().authenticated()
+        .and()
+        .csrf().ignoringAntMatchers("/h2/**") //don't apply CSRF protection to /h2-console
+        .and()
+        .headers().frameOptions().sameOrigin() //allow use of frame to same origin urls
         .and()
         .formLogin()
         .loginPage("/login")

@@ -101,3 +101,9 @@ INSERT INTO COUNTRY (name, currency) VALUES
           ('Kazakhstan', 'B3', 1261999.20);
 
 
+INSERT INTO USER_DATA (username, password, active) VALUES
+  ('admin', 'admin', true);
+
+INSERT INTO USER_ROLE (roles) VALUES
+  ('ADMIN');
+

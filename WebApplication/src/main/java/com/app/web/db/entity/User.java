@@ -9,6 +9,8 @@ import java.util.Set;
 public class User {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
   private String username;
   private String password;
   private boolean active;
@@ -27,6 +29,22 @@ public class User {
   public User(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public User(Integer id, String username, String password, boolean active, Set<Role> roles) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.active = active;
+    this.roles = roles;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getUsername() {
