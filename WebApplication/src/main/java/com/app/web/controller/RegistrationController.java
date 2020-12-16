@@ -1,14 +1,13 @@
 package com.app.web.controller;
 
 import com.app.web.config.Role;
-import com.app.web.db.entity.User;
-import com.app.web.db.repository.UserRepo;
+import com.app.web.domain.User;
+import com.app.web.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 

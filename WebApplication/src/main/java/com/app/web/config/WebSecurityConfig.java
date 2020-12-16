@@ -1,5 +1,6 @@
 package com.app.web.config;
 
+import com.app.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private DataSource dataSource;
+
+  @Autowired
+  private UserService userService;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -44,12 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.jdbcAuthentication()
-        .dataSource(dataSource) // Manager can go to the DB and take the User role
-        .passwordEncoder(NoOpPasswordEncoder.getInstance())
-        .usersByUsernameQuery("select username, password, active from USER_DATA where username=?")
-        .authoritiesByUsernameQuery("select u.username, ur.roles from USER_DATA u " +
-            "inner join USER_ROLE ur on u.id = ur.user_id where username=?");
+    auth.userDetailsService(userService) // Manager can go to the DB and take the User role
+        .passwordEncoder(NoOpPasswordEncoder.getInstance());
   }
 
 }

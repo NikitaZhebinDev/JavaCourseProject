@@ -1,8 +1,10 @@
 package com.app.web.controller;
 
-import com.app.web.db.entity.Country;
-import com.app.web.db.repository.*;
+import com.app.web.domain.Country;
+import com.app.web.domain.User;
+import com.app.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +36,17 @@ public class MainController {
   }
 
   @GetMapping("/")
-  public String main(Map<String, Object> model) {
+  public String main(@AuthenticationPrincipal User user,
+                     Map<String, Object> model) {
     putAllData(model);
 
     return "main";
   }
 
   @PostMapping("add_country")
-  public String add(@RequestParam String name, @RequestParam String currency,
+  public String add(@AuthenticationPrincipal User user,
+                    @RequestParam String name,
+                    @RequestParam String currency,
                     Map<String, Object> model) {
     Country country = new Country(name, currency);
     countryRepo.save(country);
