@@ -1,12 +1,15 @@
 package com.app.web.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "PROJECT")
 public class Project {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String name;
   private String companyName;
@@ -15,6 +18,14 @@ public class Project {
   private Integer budgetId;
 
   public Project() {
+  }
+
+  public Project(String name, String companyName, String staffSkillLevel, Integer staffNumber, Integer budgetId) {
+    this.name = name;
+    this.companyName = companyName;
+    this.staffSkillLevel = staffSkillLevel;
+    this.staffNumber = staffNumber;
+    this.budgetId = budgetId;
   }
 
   public Project(Integer id, String name, String companyName, String staffSkillLevel, Integer staffNumber, Integer budgetId) {

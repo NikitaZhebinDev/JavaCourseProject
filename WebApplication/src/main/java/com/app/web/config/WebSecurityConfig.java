@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
         .authorizeRequests()
         .antMatchers("/h2/**").permitAll()
-        .antMatchers("/", "/registration").permitAll()
+        .antMatchers("/", "/registration", "/greeting").permitAll()
         .anyRequest().authenticated()
         .and()
         .csrf().ignoringAntMatchers("/h2/**") //don't apply CSRF protection to /h2-console

@@ -1,20 +1,6 @@
 
 Z
 *src/main/java/com/app/web/Application.java,d\f\df785f2bcb18e9dc92addc45faa245e51b64250d
-]
--src/main/java/com/app/web/MainController.java,d\7\d764726f6d04bf7f55a88d5fccc3debb356ca40e
-c
-3src/main/java/com/app/web/db/repos/CountryRepo.java,4\5\4577fe642dc36d550101226fcebea2363c3e76c2
-c
-3src/main/java/com/app/web/db/repos/CompanyRepo.java,3\a\3afb2faaed895c1e83995b26b48c5da8b347aa19
-h
-8src/main/java/com/app/web/db/repos/SkillPaymentRepo.java,3\8\38d530ed0e6a6d10fcfefb7e4eb7054904b32035
-c
-3src/main/java/com/app/web/db/repos/ProjectRepo.java,0\a\0a34753ffd079fbcd2013123d2ebb384ee06b392
-^
-.src/main/java/com/app/web/model/EntityKey.java,e\3\e39cd578365ff47bc30a9bdc7acdb21551a04a39
-b
-2src/main/java/com/app/web/db/repos/BudgetRepo.java,5\2\524d0f8a3e57582f605320c13cd8a69435487260
 F
 application.properties,2\f\2f692484526a88bd040e1ec9f8c211bca74f6755
 `

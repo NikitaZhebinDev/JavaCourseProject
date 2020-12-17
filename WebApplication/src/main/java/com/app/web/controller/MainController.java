@@ -1,6 +1,8 @@
 package com.app.web.controller;
 
+import com.app.web.domain.Budget;
 import com.app.web.domain.Country;
+import com.app.web.domain.Project;
 import com.app.web.domain.User;
 import com.app.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import static com.app.web.config.EntityKey.*;
@@ -36,33 +41,53 @@ public class MainController {
   }
 
   @GetMapping("/")
-  public String main(@AuthenticationPrincipal User user,
-                     Map<String, Object> model) {
-    putAllData(model);
-
+  public String main(@AuthenticationPrincipal User user, Map<String, Object> model) {
+    refreshTables(model);
     return "main";
   }
 
   @PostMapping("add_country")
-  public String add(@AuthenticationPrincipal User user,
+  public String addCountry(@AuthenticationPrincipal User user,
                     @RequestParam String name,
                     @RequestParam String currency,
                     Map<String, Object> model) {
     Country country = new Country(name, currency);
     countryRepo.save(country);
-
-    putAllData(model); // refresh the tables
-
+    refreshTables(model);
     return "main";
   }
 
   @PostMapping("filter_country_by_name")
-  public String filter(@RequestParam String name, Map<String, Object> model) {
-    putAllData(model); // refresh the tables
+  public String filterCountryByName(@RequestParam String name, Map<String, Object> model) {
+    refreshTables(model);
     if (name != null && !name.isEmpty()) {
       model.put("countries", countryRepo.findByName(name));
     }
+    return "main";
+  }
 
+  @PostMapping("calculate_budget")
+  public String calculateBudget(@RequestParam String companyName,
+                                @RequestParam String projectName,
+                                @RequestParam String staffSkillLevel,
+                                @RequestParam Integer staffNumber,
+                                @RequestParam String startDate,
+                                @RequestParam Integer monthsNumber,
+                                Map<String, Object> model) {
+
+    // TODO: move logic to some service
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startProjectDate = LocalDate.parse(startDate, formatter);
+    LocalDate finishProjectDate = startProjectDate.plusMonths(monthsNumber);
+
+    BigDecimal monthlyPayment = skillPaymentRepo.findByCountryNameAndSkillLevel(, staffSkillLevel);
+    BigDecimal totalPayment;
+
+    //Budget budget = new Budget();
+    //Project project = new Project(projectName, companyName, staffSkillLevel, staffNumber, 0); // Добавляем новый проект
+
+    refreshTables(model);
     return "main";
   }
 
@@ -71,7 +96,7 @@ public class MainController {
    *
    * @param model
    */
-  private void putAllData(Map<String, Object> model) {
+  private void refreshTables(Map<String, Object> model) {
     model.put(COUNTRIES.getKey(), countryRepo.findAll());
     model.put(COMPANIES.getKey(), companyRepo.findAll());
     model.put(PROJECTS.getKey(), projectRepo.findAll());

@@ -1,6 +1,8 @@
 package com.app.web.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 public class Budget {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private LocalDate startDate;
   private LocalDate finishDate;
@@ -18,6 +21,15 @@ public class Budget {
   private String currency;
 
   public Budget() {
+  }
+
+  public Budget(LocalDate startDate, LocalDate finishDate, Integer monthsNumber, BigDecimal monthlyPayment, BigDecimal totalPayment, String currency) {
+    this.startDate = startDate;
+    this.finishDate = finishDate;
+    this.monthsNumber = monthsNumber;
+    this.monthlyPayment = monthlyPayment;
+    this.totalPayment = totalPayment;
+    this.currency = currency;
   }
 
   public Budget(Integer id, LocalDate startDate, LocalDate finishDate, Integer monthsNumber, BigDecimal monthlyPayment, BigDecimal totalPayment, String currency) {
