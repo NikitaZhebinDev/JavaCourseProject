@@ -81,7 +81,7 @@ public class MainController {
     LocalDate startProjectDate = LocalDate.parse(startDate, formatter);
     LocalDate finishProjectDate = startProjectDate.plusMonths(monthsNumber);
 
-    BigDecimal monthlyPayment = skillPaymentRepo.findByCountryNameAndSkillLevel(, staffSkillLevel);
+    BigDecimal monthlyPayment = skillPaymentRepo.findByCountryNameAndSkillLevel(, staffSkillLevel).get(0).getMonthlyPayment();
     BigDecimal totalPayment;
 
     //Budget budget = new Budget();
