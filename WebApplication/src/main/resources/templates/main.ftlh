@@ -8,22 +8,56 @@
 <br><br>
 
 <!-- -------------------- User data -------------------- -->
+<#if user??>
+<h3> Ваши данные:</h3>
 
-<@l.goToLink "/registration" "Регистрация"/>
-<br>
-<@l.goToLink "/login" "Вход в систему"/>
-<br>
-<@l.logout />
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Роль</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>${user.username}</td>
+        <td><#list user.roles as role> ${role}<#sep>, </#list></td>
+    </tr>
+    </tbody>
+</table>
+<#else>
+<h3> Войдите в систему</h3>
+</#if>
 
 <br><br>
 
 
 
+<#if user??>
+    <@l.logout />
+<#else>
+    <@l.goToLink "/registration" "Регистрация"/>
+    <br>
+    <@l.goToLink "/login" "Вход в систему"/>
+    <br>
+</#if>
 
-<form action="/h2" method="get" >
+<br><br>
+
+
+
+<#if user??>
+    <#if user.roles?seq_contains("ADMIN")>
+
+<form method="get" action="/h2" >
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <button type="submit">Менеджмент Базы Данных</button>
 </form>
+
+<@l.goToLink "/userList" "Список пользователей"/>
+
+    </#if>
+</#if>
 
 
 <!-- -------------------- Calculate budget function -------------------- -->
@@ -47,9 +81,8 @@
 <!-- -------------------- Country section -------------------- -->
 <br><br>
 
-<form method="post" action="filter_country_by_name">
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="text" name="name">
+<form method="get" action="/">
+    <input type="text" name="countryName" value="${countryName}">
     <button type="submit">Найти</button>
 </form>
 

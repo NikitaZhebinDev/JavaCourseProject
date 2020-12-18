@@ -103,9 +103,13 @@ INSERT INTO COUNTRY (name, currency) VALUES
 
 INSERT INTO USER_DATA (username, password, active) VALUES
   ('kita', 'pass', true),
-  ('admin', 'admin', true);
+  ('admin', 'admin', true),
+  ('dima', 'dima', true),
+  ('kirill', 'kirill', true);
 
-INSERT INTO USER_ROLE (roles) VALUES
-  ('ADMIN'),
-  ('ADMIN');
+INSERT INTO USER_ROLE (user_id, roles) VALUES
+  (1, 'ADMIN'),
+  (2, 'ADMIN'),
+  (3, 'USER'),
+  (4, 'USER');
 

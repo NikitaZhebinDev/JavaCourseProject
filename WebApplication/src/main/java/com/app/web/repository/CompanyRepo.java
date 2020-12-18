@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface CompanyRepo extends CrudRepository<Company, Integer> {
 
-  List<Country> findByName(String name);
+  List<Company> findByName(String name);
 
 }
