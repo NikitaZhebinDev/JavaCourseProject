@@ -99,7 +99,7 @@ public class MainController {
     // TODO: move logic to some service
 
     refreshTables(model);
-    return "main";
+    return "redirect:/";
   }
 
   /**

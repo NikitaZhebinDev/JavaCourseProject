@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kursach</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <style>
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    }
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+    }
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+    </style>
+</head>
+<body>
+
+
+<h1> Главная страница</h1>
+
+<br><br>
+
+<!-- -------------------- User data -------------------- -->
+
+<form action="http://localhost:8888/registration">
+    <input type="submit" value="Регистрация"/>
+</form>
+<br>
+<form action="http://localhost:8888/login">
+    <input type="submit" value="Вход в систему"/>
+</form>
+<br>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <input type="submit" value="Выйти из системы"/>
+</form>
+
+<br><br>
+
+<!-- -------------------- Calculate budget function -------------------- -->
+
+
+<form action="/h2" method="get" >
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <button type="submit">Менеджмент Базы Данных</button>
+</form>
+
+
+<!-- -------------------- Country section -------------------- -->
+<br><br>
+
+<form method="post" action="filter_country_by_name">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <input type="text" name="name">
+    <button type="submit">Найти</button>
+</form>
+
+<H3>Список стран:</H3>
+
+<table>
+    <tr>
+        <th>Название</th>
+        <th>Валюта</th>
+    </tr>
+    {{#countries}}
+        <tr>
+            <td><b>{{name}}</b></td>
+            <td><span>{{currency}}</span></td>
+        </tr>
+    {{/countries}}
+</table>
+
+<div>
+    <form method="post" action="add_country">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <input type="text" name="name" placeholder="Введите название">
+        <input type="text" name="currency" placeholder="Введите валюту">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<!-- -------------------- Company section -------------------- -->
+<br>
+<hr>
+<br>
+
+<H3>Список компаний:</H3>
+
+<table>
+    <tr>
+        <th>Название</th>
+        <th>Страна</th>
+        <th>Текущий бюджет</th>
+        <th>Выделенный бюджет</th>
+        <th>Дата основания</th>
+    </tr>
+    {{#companies}}
+        <tr>
+            <td><b>{{name}}</b></td>
+            <td><span>{{countryName}}</span></td>
+            <td><span>{{currentBudget}}</span></td>
+            <td><span>{{allocatedBudget}}</span></td>
+            <td><span>{{foundationDate}}</span></td>
+        </tr>
+    {{/companies}}
+</table>
+
+<!-- -------------------- Project section -------------------- -->
+<br>
+<hr>
+<br>
+
+<H3>Список проектов:</H3>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Компания</th>
+        <th>Уровень квалификации сотрудников</th>
+        <th>Кол-во сотрудников</th>
+        <th>ID бюджета</th>
+    </tr>
+    {{#projects}}
+        <tr>
+            <td><b>{{id}}</b></td>
+            <td><span>{{name}}</span></td>
+            <td><span>{{companyName}}</span></td>
+            <td><span>{{staffSkillLevel}}</span></td>
+            <td><span>{{staffNumber}}</span></td>
+            <td><span>{{budgetId}}</span></td>
+        </tr>
+    {{/projects}}
+</table>
+
+<!-- -------------------- Budget section -------------------- -->
+<br>
+<hr>
+<br>
+
+<H3>Бюджеты:</H3>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Дата начала</th>
+        <th>Дата окончания</th>
+        <th>Кол-во месяцев</th>
+        <th>Ежемесячная плата</th>
+        <th>Всего к оплате</th>
+        <th>Валюта</th>
+    </tr>
+    {{#budgets}}
+        <tr>
+            <td><b>{{id}}</b></td>
+            <td><span>{{startDate}}</span></td>
+            <td><span>{{finishDate}}</span></td>
+            <td><span>{{monthsNumber}}</span></td>
+            <td><span>{{monthlyPayment}}</span></td>
+            <td><span>{{totalPayment}}</span></td>
+            <td><span>{{currency}}</span></td>
+        </tr>
+    {{/budgets}}
+</table>
+
+<!-- -------------------- Skill Payment section -------------------- -->
+<br>
+<hr>
+<br>
+
+<H3>Средние выплаты согласно уровню специалиста и страны проживания:</H3>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Страна</th>
+        <th>Уровень квалификации сотрудника</th>
+        <th>Ежемесячная плата</th>
+    </tr>
+    {{#skillPayments}}
+        <tr>
+            <td><b>{{id}}</b></td>
+            <td><span>{{countryName}}</span></td>
+            <td><span>{{skillLevel}}</span></td>
+            <td><span>{{monthlyPayment}}</span></td>
+        </tr>
+    {{/skillPayments}}
+</table>
+
+
+<br><br>
+
+
+</body>
+</html>

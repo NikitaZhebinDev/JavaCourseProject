@@ -8,58 +8,21 @@
 <br><br>
 
 <!-- -------------------- User data -------------------- -->
-<#if user??>
-<h3> Ваши данные:</h3>
-
-<table>
-    <thead>
-    <tr>
-        <th>Имя</th>
-        <th>Роль</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>${user.username}</td>
-        <td><#list user.roles as role> ${role}<#sep>, </#list></td>
-    </tr>
-    </tbody>
-</table>
-<#else>
-<h3> Войдите в систему</h3>
-</#if>
-
-<br><br>
-
-
+<br>
 
 <#if user??>
     <@l.logout />
 <#else>
     <@l.goToLink "/registration" "Регистрация"/>
     <br>
-    <@l.goToLink "/login" "Вход в систему"/>
+    <@l.goToLink "/login?" "Вход в систему"/>
     <br>
 </#if>
 
 <br><br>
 
 
-
 <#if user??>
-    <#if user.roles?seq_contains("ADMIN")>
-
-<form method="get" action="/h2" >
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <button type="submit">Менеджмент Базы Данных</button>
-</form>
-
-<@l.goToLink "/userList" "Список пользователей"/>
-
-    </#if>
-</#if>
-
-
 <!-- -------------------- Calculate budget function -------------------- -->
 <h2> Бюджетирование </h2>
 
@@ -72,7 +35,7 @@
         <input type="number" name="staffNumber" placeholder="Введите кол-во сотрудников"><br>
         <input type="date" name="startDate" placeholder="Введите дату начала"><br>
         <input type="number" name="monthsNumber" placeholder="Введите кол-во месяцев"><br>
-        <button type="submit">Вычислить</button><br>
+        <button type="submit" class="btn btn-primary">Вычислить</button><br>
     </form>
 </div>
 <!-- -------------------- Calculate budget function -------------------- -->
@@ -83,9 +46,10 @@
 
 <form method="get" action="/">
     <input type="text" name="countryName" value="${countryName}">
-    <button type="submit">Найти</button>
+    <button type="submit" class="btn btn-primary">Найти страну</button>
 </form>
 
+<br>
 
 <H3>Список стран:</H3>
 
@@ -104,12 +68,14 @@
     </#list>
 </table>
 
+<br>
+
 <div>
     <form method="post" action="add_country">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="text" name="name" placeholder="Введите название">
         <input type="text" name="currency" placeholder="Введите валюту">
-        <button type="submit">Добавить</button>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
 </div>
 
@@ -132,8 +98,24 @@
         <tr>
             <td><b>${company.name}</b></td>
             <td><span>${company.countryName}</span></td>
-            <td><span>${company.currentBudget}</span></td>
-            <td><span>${company.allocatedBudget}</span></td>
+            <td>
+                <#if user??>
+                <#if user.roles?seq_contains("ADMIN")>
+                    <span>${company.currentBudget}</span>
+                <#else>
+                    <h4>Нет доступа</h4>
+                </#if>
+                </#if>
+            </td>
+            <td>
+                <#if user??>
+                <#if user.roles?seq_contains("ADMIN")>
+                    <span>${company.allocatedBudget}</span>
+                <#else>
+                    <h4>Нет доступа</h4>
+                </#if>
+                </#if>
+            </td>
             <td><span>${company.foundationDate}</span></td>
         </tr>
     </#list>
@@ -160,8 +142,25 @@
             <td><b>${project.id}</b></td>
             <td><span>${project.name}</span></td>
             <td><span>${project.companyName}</span></td>
-            <td><span>${project.staffSkillLevel}</span></td>
-            <td><span>${project.staffNumber}</span></td>
+            <td>
+                <#if user??>
+                <#if user.roles?seq_contains("ADMIN")>
+                    <span>${project.staffSkillLevel}</span>
+                <#else>
+                    <h4>Нет доступа</h4>
+                </#if>
+                </#if>
+
+            </td>
+            <td>
+                <#if user??>
+                <#if user.roles?seq_contains("ADMIN")>
+                    <span>${project.staffNumber}</span>
+                <#else>
+                    <h4>Нет доступа</h4>
+                </#if>
+                </#if>
+            </td>
             <td><span>${project.budgetId}</span></td>
         </tr>
     </#list>
@@ -174,6 +173,7 @@
 
 <H3>Бюджеты:</H3>
 
+<#if user.roles?seq_contains("ADMIN")>
 <table>
     <tr>
         <th>ID</th>
@@ -196,6 +196,11 @@
         </tr>
     </#list>
 </table>
+<#else>
+<br>
+<h4>Недостаточно прав доступа!</h4>
+<br>
+</#if>
 
 <!-- -------------------- Skill Payment section -------------------- -->
 <br>
@@ -204,6 +209,7 @@
 
 <H3>Средние выплаты согласно уровню специалиста и страны проживания:</H3>
 
+<#if user.roles?seq_contains("ADMIN")>
 <table>
     <tr>
         <th>ID</th>
@@ -220,7 +226,12 @@
         </tr>
     </#list>
 </table>
-
+<#else>
+<br>
+    <h4>Недостаточно прав доступа!</h4>
+<br>
+</#if>
+</#if>
 
 <br><br>
 
